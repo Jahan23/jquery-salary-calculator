@@ -4,11 +4,17 @@ $(document).ready(onReady);
 function onReady(){
     console.log('jquery is loaded');
     $('#submit').on('click', submitEmployee);
+    $('#employeeList').on('click', '.deleteBtn', deleteItem);
     // $('#hello').append('Welcome to my Page!');
     // $('#hello').addClass('red');
     // $('#submit').on('click', handleSubmit);
 }
 
+function deleteItem(){
+    console.log('in delete');
+    $(this).parent().remove();
+    // remove that person from the DOM;
+}
 
 //The application should have an input form that collects _employee first name, last name, ID number, job title, annual salary_.
 
@@ -38,26 +44,27 @@ function submitEmployee(){
     }
     employeeArray.push(newEmployee);
 
-    // console.log('this the the array', employeeArray);
-    // $('#firstName').val('');
-    // $('#lastName').val('');
-    // $('#idNumber').val('');
-    // $('#jobTitle').val('');
-    // $('#annualSalary').val('');
+    console.log('this the the array', employeeArray);
+    $('#firstName').val('');
+    $('#lastName').val('');
+    $('#idNumber').val('');
+    $('#jobTitle').val('');
+    $('#annualSalary').val('');
     // // setter
-    // // $('#wrapper').append('<button class="extraBtn">click me</button>');
-    // displayEmployee(employeeArray);
+     //$('#wrapper').append('<button class="extraBtn">click me</button>');
+    displayEmployee(employeeArray);
 }
 
-// function displayEmployee(arrayParam){
-//     $('#peopleList').empty();
-//     console.log("in displayPeople");
-//     for(let i = 0; i < arrayParam.length; i++){
-//         $('#peopleList').append(`
-//         <li>
-//             ${arrayParam[i].lastName}, ${arrayParam[i].firstName}
-//             <button class="deleteBtn">delete</button>
-//         </li>
-//         `)
-//     }
-// }
+ function displayEmployee(arrayParam){
+    $('#employeeList').empty();
+    console.log("in displayEmployee");
+    for(let i = 0; i < arrayParam.length; i++){
+        $('#employeeList').append(`
+        <li>
+            ${arrayParam[i].firstName} ${arrayParam[i].lastName}, ${arrayParam[i].idNumber}, ${arrayParam[i].jobTitle},
+            ${arrayParam[i].annualSalary}
+            <button class="deleteBtn">delete</button>
+        </li>
+        `)
+    }
+ }
