@@ -5,10 +5,7 @@ function onReady(){
     console.log('jquery is loaded');
     $('#submit').on('click', submitEmployee);
     $('#employeeList').on('click', '.deleteBtn', deleteItem);
-    // $('#hello').append('Welcome to my Page!');
-    // $('#hello').addClass('red');
-    // $('#submit').on('click', handleSubmit);
-}
+    $('#monthlyTotal').on('click', '.deleteBtn', deleteItem);
 
 function deleteItem(){
     console.log('in delete');
@@ -20,18 +17,6 @@ function deleteItem(){
 
 let employeeArray = [];
 
-// function newEmployee(){
-//     console.log('addEmployee');
-//     $( '#firstName' ).on( 'click', addFirstName );
-//     $( '#lastName' ).on( 'click', addLastName );
-//     $( '#idNumber' ).on( 'click', addIdNumber );
-//     $( '#jobTitle' ).on( 'click', addJobTitle );
-//     $('#annualSalary').on('click', addAnnualSalary);
-  
-//     displayCount();
-  
-  
-//   }
 
 function submitEmployee(){
     console.log('in submitEmployee');
@@ -53,18 +38,40 @@ function submitEmployee(){
     // // setter
      //$('#wrapper').append('<button class="extraBtn">click me</button>');
     displayEmployee(employeeArray);
+
+    let monthlySalary = 0;
+    for(let i=0; i<employeeArray.length; i++){
+      monthlySalary = monthlySalary + (employeeArray[i].annualSalary);
+    }
+
+    monthlySalary = monthlySalary / 12;
+    
+    $('#total').remove();
+    if (monthlySalary > 20000){
+      $('#monthlyTotal').append(`<p id="total" class="red-background">total: ${monthlySalary}</p>`)
+    }else {
+      $('#monthlyTotal').append(`<p id="total" class="green-background">total: ${monthlySalary}</p>`)
+    }
+
+    console.log(monthlySalary);
+
+    displayEmployee();
+
 }
 
  function displayEmployee(arrayParam){
     $('#employeeList').empty();
     console.log("in displayEmployee");
-    for(let i = 0; i < arrayParam.length; i++){
+    for(let i = 0; i < employeeArray.length; i++){
         $('#employeeList').append(`
         <li>
-            ${arrayParam[i].firstName} ${arrayParam[i].lastName}, ${arrayParam[i].idNumber}, ${arrayParam[i].jobTitle},
-            ${arrayParam[i].annualSalary}
+            ${employeeArray[i].firstName} ${employeeArray[i].lastName}, ${employeeArray[i].idNumber}, ${employeeArray[i].jobTitle},
+            ${employeeArray[i].annualSalary}
             <button class="deleteBtn">delete</button>
         </li>
         `)
     }
  }
+}
+
+
