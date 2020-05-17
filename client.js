@@ -5,13 +5,16 @@ function onReady(){
     console.log('jquery is loaded');
     $('#submit').on('click', submitEmployee);
     $('#employeeList').on('click', '.deleteBtn', deleteItem);
-    $('#monthlyTotal').on('click', '.deleteBtn', deleteItem);
+    //$('#monthlyTotal').on('click', '.deleteBtn', deleteItem);
+    //$('#total').on('click', '.deleteBtn', deleteItem);
+}
 
 function deleteItem(){
     console.log('in delete');
     $(this).parent().remove();
     // remove that person from the DOM;
 }
+
 
 //The application should have an input form that collects _employee first name, last name, ID number, job title, annual salary_.
 
@@ -35,16 +38,14 @@ function submitEmployee(){
     $('#idNumber').val('');
     $('#jobTitle').val('');
     $('#annualSalary').val('');
-    // // setter
-     //$('#wrapper').append('<button class="extraBtn">click me</button>');
+    
     displayEmployee(employeeArray);
 
-    let monthlySalary = 0;
-    for(let i=0; i<employeeArray.length; i++){
-      monthlySalary = monthlySalary + (employeeArray[i].annualSalary);
-    }
-
-    monthlySalary = monthlySalary / 12;
+    let annualSalary = 0;
+    
+    for (let i=0; i<employeeArray.length; i++){
+      annualSalary = annualSalary + Number(employeeArray[i].annualSalary);
+    let monthlySalary = annualSalary / 12;
     
     $('#total').remove();
     if (monthlySalary > 20000){
@@ -54,24 +55,20 @@ function submitEmployee(){
     }
 
     console.log(monthlySalary);
-
+  }
     displayEmployee();
-
 }
-
  function displayEmployee(arrayParam){
     $('#employeeList').empty();
     console.log("in displayEmployee");
     for(let i = 0; i < employeeArray.length; i++){
-        $('#employeeList').append(`
-        <li>
+        $('#employeeList').append(`<li>
             ${employeeArray[i].firstName} ${employeeArray[i].lastName}, ${employeeArray[i].idNumber}, ${employeeArray[i].jobTitle},
             ${employeeArray[i].annualSalary}
             <button class="deleteBtn">delete</button>
-        </li>
-        `)
+        </li>`)
     }
  }
-}
 
 
+ 
